@@ -1,0 +1,18 @@
+<mat-toolbar *ngIf="data?.success === true" class="success">
+  <div class="mensagem">
+    {{ data.message }}
+  </div>
+</mat-toolbar>
+  
+<div *ngIf="data?.success === false" class="error">
+  <div class="mensagem">
+    {{ data.message }}
+ </div>  
+
+<div *ngIf="data?.success === null" class="info">
+  <div class="mensagem">
+    {{ data.message }}
+ </div>  
+
+
+</div>

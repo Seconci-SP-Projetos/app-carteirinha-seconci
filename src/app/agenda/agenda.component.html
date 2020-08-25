@@ -1,0 +1,74 @@
+<div class="agenda-container" id="agendaContainer" (swipedown)="loadAgendamentos();"> 
+    <div class="agenda" *ngIf="loaded && this.multiService.agendamentos.length != 0;">
+        <div>
+            <div class="titulo-agenda">
+                Suas consultas e exames <br>
+            </div>
+            <div class="nome-paciente">
+                {{ pacienteSelecionado }}
+            </div>
+            <div class="call-button">
+                <button mat-fab color="#0b6675" aria-label="Example icon button with a home icon">
+                    <a href="tel:{{ telefoneUnidade }}"><mat-icon [color]="'primary'">call</mat-icon></a><br>
+                </button>
+            </div>
+            <div style="position: absolute; top: 50px; left: 50%; transform: translate(-50%, -50%);" *ngIf="reloading">
+                <mat-progress-spinner [diameter]="30" [color]="'warn'" [mode]="'indeterminate'"></mat-progress-spinner>
+            </div>
+        </div>
+
+        <div (swipedown)="loadAgendamentos();" *ngFor="let compromisso of this.multiService.agendamentos; let idx = index;" (swipedown)="loadAgendamentos();">
+            <div class="data" *ngIf="compromisso.dia != ''"> 
+                <div class="dia">
+                    {{ compromisso.diaString }}
+                    <div style="display: inline; font-size: 16px; vertical-align: baseline;">{{ compromisso.mesAno }}</div>
+                </div>
+                <div class="dia-semana">{{ compromisso.diaSemana }}</div>
+            </div>  
+            <div class="detalhes">
+                <div class="hora">
+                    {{ compromisso.hora }}
+                </div>
+                <div *ngIf="compromisso.quantidade == 1" class="medico">
+                    {{ compromisso.medico }}
+                </div>
+                <div *ngIf="compromisso.quantidade > 1" class="medico" (tap)="carregaExames(idx, compromisso.recurso, compromisso.data, compromisso.hora)">
+                    {{ compromisso.medico }}
+                </div>
+                <div *ngIf="compromisso.quantidade == 1" class="medico-especialidade"  (tap)="carregaPreparoExame(idx, compromisso.recurso, compromisso.data, compromisso.hora);">
+                    {{  compromisso.procedimento }}
+                    <div class="preparo-unico" *ngIf="compromisso.exibeProcedimento">
+                        {{ compromisso.procedimentoUnico }} 
+                    </div>
+                </div>
+                <mat-icon *ngIf="compromisso.quantidade > 1" class="preparo" [color]="'primary'" (tap)="carregaExames(idx, compromisso.recurso, compromisso.data, compromisso.hora)">biotech</mat-icon>
+                <ul *ngIf="compromisso.exibeExames">
+                    <li class="lista-exames" *ngFor="let exame of compromisso.exames; let idxExame = index;" (tap)="carregaPreparo(idx, idxExame, exame.CD_PROCEDIMENTO);"> 
+                        {{ exame.DS_PROCEDIMENTO }}
+                        <div class="exibe-preparo" *ngIf="exame?.preparo !== undefined && exame.exibePreparo">
+                            {{ exame.preparo }}
+                        </div>
+                    </li>
+                </ul>
+                <div class="chamada" *ngIf="compromisso.teleMedicina == 'S'">
+                    <mat-icon style="padding-right: 0.5rem" [color]="'warn'" *ngIf="compromisso.soundAlert && compromisso.soundOn" (tap)="this.multiService.toggleSound(idx)">volume_up</mat-icon>
+                    <mat-icon style="padding-right: 0.5rem" [color]="'primary'" *ngIf="compromisso.soundAlert && !compromisso.soundOn" (tap)="this.multiService.toggleSound(idx)">volume_off</mat-icon>
+                    <mat-icon [color]="'warn'" *ngIf="compromisso.ativaTelemedicina == 'S'" (tap)="iniciaTelemedicina(compromisso.salaTelemedicina)">videocam</mat-icon>
+                    <mat-icon [color]="'primary'" *ngIf="compromisso.ativaTelemedicina == 'N'">videocam_off</mat-icon>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div *ngIf="loaded && this.multiService.agendamentos.length == 0" class="sem-agendamentos">
+        Não existem consultas ou exames agendados no momento para<p>
+        {{ pacienteSelecionado }}    
+        <div class="botao-ligacao">
+            <button mat-fab color="#0b6675" aria-label="Example icon button with a home icon">
+                <a href="tel:{{ telefoneUnidade }}"><mat-icon [color]="'primary'">call</mat-icon></a><br>
+            </button>
+        </div>
+        <div class="nome-unidade">Ligar para {{ nomeUnidade }}</div>
+    </div>
+
+</div>

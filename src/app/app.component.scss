@@ -1,0 +1,123 @@
+body, html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+.app-container {
+    display: flex;
+    max-width: 860px;
+    margin: 0rem auto;
+    flex-direction: column;
+    height: 100%;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 50px;
+    margin: auto;
+}
+
+.top-buttons {
+    margin-right: 18px;
+}
+
+.top-button {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.logo {
+    width: 152px;
+    height: 50px;
+    padding: 6px;
+}
+
+.titlebar-buttons {
+    flex: 1;
+    text-align: right;
+}
+
+.logoff {
+    color: #ff6d00;
+    font-size: 42px;
+    vertical-align: top;
+  }
+
+.login {
+    color: #0097a7;
+    font-size: 42px;
+    vertical-align: top;
+}
+
+.profile {
+    color: #0097a7;
+    margin-right: 15px;
+    vertical-align: top;
+}
+
+.router {
+    margin: 0 auto;
+    width: 100%;
+    flex-grow: 1;
+    overflow-y: auto;
+    position: relative;
+}
+
+.toolbar {
+    min-height: 60px;
+    width: 100%;
+    margin: auto;
+    background-color: rgb(67, 137, 151);
+}
+
+.toolbar-options {
+    display: flex;
+    flex: 1;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    color: #ffffff;
+    line-height: 100%;
+}
+
+.toolbar-option {
+    width: 25%; 
+    text-align: center;
+    
+}
+
+.mat-icon-button {
+    height: 32px !important;
+    width: 32px !important;
+    font-size: 22px !important;
+    font-weight: normal;  
+}
+
+.toolbar-labels {
+    font-size: 10px;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    color: #ffffff;
+}
+
+.toolbar-label {
+    width: 25%; 
+    text-align: center;
+}
+
+
+.mat-button-ripple-round {
+    border-radius: 50%;
+    z-index: 1;
+    width: 50px;
+
+}

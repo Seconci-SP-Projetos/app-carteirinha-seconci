@@ -1,0 +1,49 @@
+<div class="validaSMS-container">
+    <form [formGroup]="formSMS" id="formSMS" class="sms-form">
+
+      <div class="div-title">Verificação</div>
+      <div class="div-subtitle">
+        Enviamos para seu celular uma mensagem de texto 
+        contendo um código de acesso com seis números.<br>
+        Por favor digite o código recebido no campo abaixo
+      </div>
+      <div class="codigo" >
+          <mat-form-field style="width: 9rem;">
+            <mat-label></mat-label>
+            <input matInput (focus)="removeErrorValidacao()"
+                            id="codigoVerificacao" 
+                            placeholder="000000" 
+                            formControlName="codigoVerificacao"
+                            maxlength="6">
+          </mat-form-field>
+  
+      </div>
+  
+      <div *ngIf="codigoVerificacao?.touched &&codigoVerificacao.invalid" class="validation">
+        <div *ngIf="codigoVerificacao.errors.required">
+            É preciso informar o seu CPF antes de prosseguir
+        </div>
+      </div>
+  
+      <div class="div-subtitle" *ngIf="formSMS.invalid">
+        Caso não tenha recebido o código de verificação tente mais uma vez tocando no botão abaixo
+      </div>
+      <div class="form-buttom-row" *ngIf="formSMS.invalid">
+        <button mat-raised-button color="primary" type="button" (click)="reenviaSMS($event)">Reenviar Codigo</button>
+      </div>
+ 
+      <div class="errorMessage" *ngIf="erroValidacao">
+        O código informado não combina com o que lhe foi enviado. Por favor, verifique o código e tente novamente.
+      </div>
+
+      <div class="form-buttom-row" *ngIf="!formSMS.invalid">
+        <button mat-raised-button color="primary" type="button" (click)="validaSMS($event)">Verificar</button>
+      </div>
+
+    </form>
+    
+    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" *ngIf="apiAccess">
+      <mat-progress-spinner [diameter]="50" [color]="'warn'" [mode]="'indeterminate'"></mat-progress-spinner>
+    </div>
+
+  </div>

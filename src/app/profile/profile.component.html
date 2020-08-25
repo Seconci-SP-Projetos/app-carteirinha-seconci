@@ -1,0 +1,88 @@
+<div class="profile-container" (swipeleft)="mostraAnterior();"  (swiperight)="mostraPosterior();">
+    <form [formGroup]="profileForm" id="profileForm" class="profile-form" autocomplete="off">
+
+        <div class="profile-title">Atualize Seus Dados Cadastrais</div>
+        <div class="profile-nome">{{ nomePaciente }}</div>
+
+        <div class="input-row">
+            <span class="material-icons">contact_phone</span>
+            <mat-form-field style="width: 2rem; padding-right: 10px">
+                <input type="number" matInput id="nr_ddd_celular" placeholder="DDD" formControlName="nr_ddd_celular" maxlength="4">
+            </mat-form-field>
+            <mat-form-field style="width: 6.5rem; padding-right: 10px;">
+                <input type="number" matInput id="nr_fone_celular" placeholder="NÚMERO CELULAR" formControlName="nr_fone_celular" maxlength="10">
+            </mat-form-field>
+            <mat-form-field style="width: 6.5rem;">
+                <input matInput id="rg_paciente" placeholder="RG" formControlName="rg_paciente" maxlength="14">
+            </mat-form-field>
+            <div *ngIf="nr_ddd_celular.invalid || nr_fone_celular.invalid || rg_paciente.invalid" class="invalido">
+                Os campos acima são obrigatórios e devem conter apenas números
+            </div>
+        </div>
+        <div class="input-row">
+            <span class="material-icons">assignment_ind</span>
+            <mat-form-field style="width: 16rem;">
+                <input matInput id="ocupacao" placeholder="OCUPAÇÃO" formControlName="ocupacao" maxlength="60">
+            </mat-form-field>
+        </div>
+        <div class="input-row">
+            <span class="material-icons">pregnant_woman</span>
+            <mat-form-field style="width: 16rem;">
+                <input matInput id="nm_mae" placeholder="NOME DA MÃE" formControlName="nm_mae" maxlength="60">
+            </mat-form-field>
+        </div>
+        <div class="input-row">
+            <span class="material-icons">email</span>
+            <mat-form-field style="width: 16rem;">
+                <input type="email" matInput id="email" placeholder="E-MAIL" formControlName="email" maxlength="40">
+            </mat-form-field>
+            <div *ngIf="email.invalid" class="invalido">
+                O e-mail informado não foi encontrado
+            </div>
+        </div>
+        <div class="input-row" >
+            <span class="material-icons">person_pin_circle</span>
+            <mat-form-field style="width: 6rem;">
+                <input matInput id="cep" placeholder="CEP" formControlName="cep" maxlength="8">
+            </mat-form-field>
+            <div class="cep-tip">
+                Para alterar seu endereço informe um CEP válido
+            </div>
+            <div *ngIf="cep.invalid" class="invalido">
+                <div *ngIf="cep.errors.invalidCEP">
+                O CEP informado não foi encontrado
+                </div>
+            </div>
+        </div>
+
+        <div class="dados-logradouro">
+            <div> {{ nm_tipologr.value }} {{ nm_logradouro.value }}</div>
+            <div> {{ bairro.value }} </div>
+            <div> {{ ds_cidade.value }}, {{ cd_uf.value }} </div>
+        </div>
+
+        <div class="input-row" style="padding-left: 55px; padding-top: 16px;">
+            <mat-form-field style="width: 2rem; padding-right: 10px">
+                <input type="number" matInput id="nr_logradouro" placeholder="NUM" formControlName="nr_logradouro" maxlength="3">
+            </mat-form-field>
+            <mat-form-field style="width: 14rem;">
+                <input matInput id="compl_logradouro" placeholder="COMPLEMENTO" formControlName="compl_logradouro" maxlength="100">
+            </mat-form-field>
+        </div>
+        
+        <div class="input-row">
+            <span class="material-icons">credit_card</span>
+            <mat-form-field style="width: 16rem;">
+                <input matInput id="cns" placeholder="Cadastro Nacional de Saúde" formControlName="cns" maxlength="15">
+            </mat-form-field>
+            <div *ngIf="cns.invalid" class="invalido">
+                O número da CNS é inálido
+            </div>
+        </div>
+
+        <div class="form-buttom-row">
+            <button mat-raised-button [disabled]="!profileForm.valid" color="primary" type="button" (click)="saveProfile($event)">Salvar</button>
+            <button mat-raised-button color="warn" type="button" (click)="setProfileFormValues()">Cancelar</button>
+        </div>
+    </form>
+  </div>

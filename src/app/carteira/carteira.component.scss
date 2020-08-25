@@ -1,0 +1,149 @@
+.carteiras {
+    height: calc(100vh -90px);
+    position: relative;
+    font-family:  Roboto, Helvetica, sans-serif;
+}
+
+.frente {
+    min-height: 220px;
+    margin: 0.8rem auto;
+    background-image:  url("../../assets/carteira.PNG");
+    background-position:center;
+	background-repeat:no-repeat;
+	background-size:cover;
+	height: 233px;
+    width: 360px;
+    border-radius: 10px;
+    box-shadow: 1px 2px 4px rgb(0, 0, 0, 0.5);
+    border: 1px rgba(0, 0, 0, 0) solid;
+    position: relative;
+}
+
+.verso {
+    min-height: 200px;
+    margin: 0.8rem auto;
+    padding-top: 10px;
+    background-color: white;
+	height: 223px;
+    width: 360px;
+    border-radius: 10px;
+    box-shadow: 1px 2px 4px rgb(0, 0, 0, 0.5);
+    border: 1px rgba(0, 0, 0, 0) solid;
+    position: relative;
+}
+
+.titulo-mo {
+    font-size: 1.3rem;
+    color: #047083;
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.formBeneficiario {
+    margin: 1rem;
+}
+
+.dados-beneficiario {
+    position: relative;
+    margin: 0.5rem;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.767);
+    padding: 0.7rem;
+    min-height: 9rem;
+}
+
+.dados-beneficiario-mo {
+    position: relative;
+    margin: 1rem;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.5);
+    padding: 1rem;
+    padding: 2rem 1rem 3rem 1.5rem; 
+    min-height: 9rem;
+}
+
+.dados-beneficiario-mo-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding-bottom: 0.3rem;
+}
+
+.dados-beneficiario-mo-dado {
+    padding-bottom: 0.8rem;
+    font-size: 1rem;
+}
+
+.selecionado {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.tel-agendamento {
+    position: absolute; 
+    bottom: 10px; 
+    left: 30px; 
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.colunas2 {
+    display: flex;
+    justify-content: space-between;
+}
+
+.label {
+    color: rgba(0, 0, 0, 0.863);
+    font-size: 0.8rem;
+    font-weight: bold;
+    padding-bottom: 0.1rem;
+    flex: 1;
+    width: 150px;
+}
+
+.full-line {
+    color: rgba(0, 0, 0, 0.863);
+    font-size: 0.8rem;
+    font-weight: bold;
+    padding: 4px 0 0 10px;
+    flex: 1;
+    width: 100%;
+}
+
+.dado{
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    font-size: 0.8rem;
+    padding-bottom: 0.3rem;
+    flex: 1
+}
+
+.dado-marcacao {
+    padding-top: 1.6rem;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    font-size: 12px;
+    text-align: center;
+}
+
+.mat-form-field {
+    color: white;
+}
+
+.md-input-container label {
+    color: red;
+}
+
+.installButton {
+    width: 300px;
+    background-color: rgb(236, 117, 37);
+    color: white;
+    position: absolute;
+    left: 50%;
+    bottom: 10px;
+    transform: translateX(-50%);
+    font-weight: normal;
+}

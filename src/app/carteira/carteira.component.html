@@ -1,0 +1,57 @@
+<div class="carteiras">
+    <div *ngFor="let carteira of carteiras; let idx = index">
+        <div *ngIf="carteira.tpCobertura == 'ASS'">
+            <div class="frente" *ngIf="carteira.frente" (tap)="setCliente(idx);" (swipeleft)="mostraVerso(idx);"  (swiperight)="mostraFrente(idx);">
+                <div class="dados-beneficiario">
+                    <div class="label">Empresa Associada</div>
+                    <div class="selecionado" *ngIf="carteira.ID_BENEFICIARIO == beneficiarioSelecionado"><mat-icon [color]="'warn'" >check_circle</mat-icon></div>
+                    <div class="dado">{{carteira.RAZAO}}</div>
+                    <div class="label">{{ carteira.COD_TIPO_BENEFICIARIO != 1 ? 'Dependente' : 'Titular'}}</div>
+                    <div class="dado">{{carteira.NM_BENEFICIARIO }}</div>
+                    <div class="colunas2">
+                        <div>
+                            <div class="label">Nascimento</div> 
+                            <div class="dado">{{carteira.DT_NASCIMENTO }}</div>
+                        </div>
+                        <div>
+                            <div class="label">Matrícula</div>
+                        <div class="dado">{{carteira.ID_BENEFICIARIO }}</div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="carteira.COD_TIPO_BENEFICIARIO != 1" class="label">Titular</div>
+                    <div *ngIf="carteira.COD_TIPO_BENEFICIARIO != 1" class="dado">{{ carteira.NOME_TITULAR }}</div>
+                </div>
+                <!-- <div class="tel-agendamento">Agendamento: {{ carteira.TELEFONE }}</div> -->
+            </div>
+            <div  class="verso" *ngIf="! carteira.frente " (tap)="setCliente(idx);" (swipeleft)="mostraVerso(idx);"  (swiperight)="mostraFrente(idx);">
+                <div class="dados-beneficiario">
+                    <div class="dado-marcacao">
+                        Atendimentos e Agendamento<br>
+                        Segunda a sexta das 7h às 19h<br>
+                        {{carteira.TELEFONE }}<br><br>
+
+                        {{carteira.UNIDADE }}<br>
+                        {{carteira.LOCALIZACAO }} <br>
+                    </div>
+                    <div class="dado-marcacao"><button mat-mini-fab color="primary"><mat-icon routerLink="/map">location_on</mat-icon></button></div>
+                </div>    
+            </div>
+        </div>
+        <div *ngIf="carteira.tpCobertura != 'ASS'">
+           <div class="titulo-mo">Medicina Ocupacional</div> 
+            <div class="dados-beneficiario-mo">
+                <div class="dados-beneficiario-mo-label">Nome do Paciente</div>
+                <div class="dados-beneficiario-mo-dado">{{ carteira.NM_BENEFICIARIO}}</div>
+                <div class="dados-beneficiario-mo-label">CPF</div>
+                <div class="dados-beneficiario-mo-dado">{{ carteira.CPF_TITULAR}}</div>
+                <div class="dados-beneficiario-mo-label">Nascimento</div>
+                <div class="dados-beneficiario-mo-dado">{{ carteira.DT_NASCIMENTO}}</div>
+                <div class="dados-beneficiario-mo-label">Empresa</div>
+                <div class="dados-beneficiario-mo-dado">{{ carteira.RAZAO}}</div>
+                <div class="dados-beneficiario-mo-label">CNPJ</div>d
+                <div class="dados-beneficiario-mo-dado">{{ carteira.CNPJ}}</div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,85 @@
+.profile-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.profile-form {
+    max-width: 340px;
+    min-width: 340px;
+    background-color: rgba(255, 255, 255, 0.7);
+    margin: 20px 10px;
+    border-radius: 20px;
+    padding: 20px;
+    padding-bottom: 40px;
+}
+
+.profile-title {
+    padding-bottom: 0.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    color: rgb(4, 112, 131);
+}
+
+.profile-nome {
+    padding-bottom: 0.8rem;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    color: rgb(4, 112, 131);
+}
+
+.profile-subtitle {
+    padding: 1rem 2rem 2rem 2rem;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: normal;
+    text-align: center;
+    color: rgb(4, 112, 131);
+}
+
+.input-row {
+    padding: 0 1rem;
+    position: relative;
+}
+
+span {
+    padding-right: 15px;;
+    color:rgb(4, 112, 131);
+    vertical-align: middle;
+}
+
+.cep-tip {
+    position: absolute;
+    top: 10px;
+    right: 0px;
+    max-width: 170px;
+    font-size: 12px;
+    color: rgb(67, 137, 151);
+}
+
+.invalido {
+    padding-left: 55px;
+    padding-bottom: 1rem;
+    line-height: 18px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #ff3d00;
+}
+
+.dados-logradouro {
+    padding-left: 55px;
+    line-height: 22px;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgb(67, 137, 151);
+}
+
+.form-buttom-row {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+    margin-top: 10px;
+    margin-left: 55px;
+}

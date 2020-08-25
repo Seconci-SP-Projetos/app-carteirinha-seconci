@@ -1,0 +1,72 @@
+.validaSMS-container {
+    max-width: 860px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .sms-form {
+    flex: 1;
+    max-width: 380px;
+    background-color: rgba(255, 255, 255, 0.7);
+    margin: 30px;
+    border-radius: 20px;
+    padding-bottom: 50px;
+  }
+  
+  .div-title {
+    padding: 2rem 0 1rem 0;
+    font-size: 1.4rem;
+    font-weight: bold;
+    text-align: center;
+    color: rgb(4, 112, 131);
+  }
+  
+  .div-subtitle {
+    padding: 1rem 0.8rem; 
+    font-size: 1rem;
+    font-weight: normal;
+    text-align: center;
+    line-height: 1.3rem;
+    color: rgb(7, 109, 129);
+  }
+  
+  .codigo {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .validation {
+    display: block;
+    padding: 0 10px;
+    margin-bottom: 2rem;
+    color: #ff6d00;
+    font-size: 1rem;
+    text-align: center;
+  }
+  
+  .errorMessage {
+    margin-top: 3rem;
+    color:#ff6d00;
+    font-size: 1.2rem;
+    text-align: center;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .form-buttom-row {
+    display: flex;
+    padding-top: 2rem;
+    justify-content: center;
+  }
+  
+  .mat-input-element {
+    font-size: 2.6rem;
+  }
+  
+  .mat-raised-button {
+    font-size: 1.4rem;
+    padding: 10px 30px;
+  }
+  
+  

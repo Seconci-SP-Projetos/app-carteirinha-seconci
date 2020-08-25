@@ -1,0 +1,2 @@
+# appSeconci
+ Aplicatio Seconci-SP

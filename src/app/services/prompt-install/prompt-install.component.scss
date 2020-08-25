@@ -1,0 +1,31 @@
+.android-prompt {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+  
+.ios-prompt {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    .close-ios-inv {
+      position: absolute;
+      right: -10px;
+      top: 10px;
+    }
+
+    div {
+      text-align: center;
+      padding: 10px 25px 0;
+      mat-icon {
+        position: relative;
+        top: -7px;
+      }
+    }
+    img {
+      display: inline;
+    }
+  }
+  

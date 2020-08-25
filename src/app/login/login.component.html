@@ -1,0 +1,49 @@
+<div class="login-container">
+  <form [formGroup]="formLogin" id="formLogin" class="login-form" (keyup)="noveNextInput($event)">
+    <div class="div-title">Seja bem-vindo!</div>
+    <div class="div-subtitle">
+      Por favor, informe o CPF do titular e sua data de nascimento.
+    </div>
+    <div class="cpf">
+        <mat-form-field>
+          <mat-label>cpf do titular</mat-label>
+          <input matInput id="cpfTitular" formControlName="cpfTitular" maxlength="11">
+        </mat-form-field>
+    </div>
+
+    <div *ngIf="cpfTitular?.touched &&cpfTitular.invalid" class="validation">
+      <div *ngIf="cpfTitular.errors.required">
+          É preciso informar o seu CPF antes de prosseguir
+      </div>
+      <div *ngIf="cpfTitular.errors.pattern">
+          O CPF deve conter apenas números e ter 11 digitos
+      </div>
+    </div>
+
+    <div class="div-input">
+      <mat-form-field class="datePart">
+        <mat-label>dia</mat-label>
+        <input matInput id="diaNascimento" formControlName="diaNascimento" maxlength="2">
+      </mat-form-field>
+      <mat-form-field class="datePart">
+        <mat-label>mês</mat-label>
+        <input matInput id="mesNascimento" formControlName="mesNascimento" maxlength="2">
+      </mat-form-field>
+      <mat-form-field class="datePart">
+        <mat-label>ano</mat-label>
+        <input matInput id="anoNascimento" formControlName="anoNascimento" maxlength="4">
+      </mat-form-field>
+    </div>
+
+    <div class="form-button-row">
+      <button mat-raised-button color="primary" type="button" [disabled]="formLogin.invalid" (click)="authenticate($event)">Acessar</button>
+    </div>
+
+    <div class="errorMessage" *ngIf="loginError">
+      Nao foi possivel lhe identificar. <br> Por favor verifique os dados fornecidos.
+    </div>
+  </form>
+  <div>
+    <mat-progress-spinner [diameter]="50" *ngIf="sendingSMS" class="spinner" [color]="'warn'" [mode]="'indeterminate'"></mat-progress-spinner>
+  </div>
+</div>

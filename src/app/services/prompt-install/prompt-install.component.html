@@ -1,0 +1,13 @@
+<mat-toolbar *ngIf="data?.mobileType === 'android'" color="primary" class="android-prompt">
+      <div (click)="installPwa()" style="font-size: 14px; max-width: 80%; white-space: initial; line-height: 18px;">
+        Toque aqui para instalar no seu dispositivo e depois em Adicionar a Tela Inicial  
+      </div>
+    <mat-icon (click)="close()">close</mat-icon>
+</mat-toolbar>
+  
+<div *ngIf="data?.mobileType === 'ios' " class="ios-prompt">
+  <button class="close-ios-inv" mat-button color="primary" (click)="close()"><mat-icon>close</mat-icon></button>
+  <div>
+    Para instalar em seu dispositivo toque no botão de e depois em Adicionar a Tela Inicial</div>
+  <div><img src="./assets/ios-menu-btn.png"> <mat-icon>navigate_next</mat-icon> <img src="./assets/ios-add-btn.png"></div>
+</div>
