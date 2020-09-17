@@ -18,7 +18,7 @@ export class ExibeDocComponent implements OnInit {
   ngOnInit() {
 
     this.route.params.subscribe(params => {
-      this.docUrl = params['docUrl'];
+      this.docUrl = "../../assets/laudo_pdf/" + params['docUrl'];
     });
 
   }
@@ -30,6 +30,7 @@ export class ExibeDocComponent implements OnInit {
   }
 
   download(event) {
+    
     console.log('pressed')
 
     let headers = new HttpHeaders();

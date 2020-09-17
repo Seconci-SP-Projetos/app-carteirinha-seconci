@@ -25,7 +25,11 @@ export class DocumentosService {
   public getDocumentos(): Observable<any> { 
     
     let matricula = localStorage.getItem('idBeneficiario');
-    return this.http.get('https://apis.seconci-sp.org.br:3011/consultaAgenda/documentos/' + matricula, httpOptions );
+    return this.http.get('https://apis.seconci-sp.org.br:3011/consultaClientes/v2/receituario/' + matricula, httpOptions );
   }
-
+  
+  public getDocumentoEmPDF(nrAtendimento,  anoAtendimento, cdCredenciado,  cdProcedimento, Matricula ) {
+    return this.http.get('https://apis.seconci-sp.org.br:3011/consultaClientes/laudos/' + nrAtendimento + '/' +  anoAtendimento + '/' + cdCredenciado + '/' +  cdProcedimento + '/' + Matricula , httpOptions );
+    // https://apis.seconci-sp.org.br:3011/consultaClientes/laudos/18806/2010/2/28100549/1324990
+  }
 }

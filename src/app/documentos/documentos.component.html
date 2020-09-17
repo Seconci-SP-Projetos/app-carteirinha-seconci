@@ -1,8 +1,8 @@
-<div class="agenda-container">
+<div class="agenda-container" *ngIf="loaded">
     <div class="agenda" *ngIf="documentos?.length != 0;">
 
         <div class="titulo-documentos">
-            Documentos emitidos em seu nome<br>
+            Documentos emitidos para<br>
         </div>
 
         <div class="nome-paciente">
@@ -11,7 +11,11 @@
 
         <div class="data">
             <div *ngFor="let documento of documentos; let idx = index;">
-                <div class="item-info" (tap)="exibeDocumento(documento.htmlUrl);">
+                <div class="item-info" (tap)="exibeDocumento(documento.nrAtendimento, 
+                                                             documento.anoAtendimento,
+                                                             documento.cdCredenciado,
+                                                             documento.cdProcedimento,
+                                                             documento.Matricula);">
                     <div class="item-data">
                         {{ documento.dtAtendimento }} 
                     </div>
@@ -26,9 +30,12 @@
         </div>
     </div>
  
-    <div *ngIf="loaded && documentos.length == 0" class="sem-documentos">
+    <div *ngIf="documentos.length == 0" class="sem-documentos">
         <p>{{ pacienteSelecionado }}</p>
-        Não existem documentos, tais como exames, atestados ou receituários emitidos para você nos últimos dias<p>
+        Não existem documentos, tais como exames, atestados ou receituários emitidos para você nos últimos dias.<p>
     </div>
 
+</div>
+<div *ngIf="!loaded" class="spinner">
+    <mat-progress-spinner [diameter]="50" [color]="'warn'" [mode]="'indeterminate'"></mat-progress-spinner>
 </div>

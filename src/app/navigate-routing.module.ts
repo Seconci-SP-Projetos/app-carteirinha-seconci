@@ -11,9 +11,11 @@ export class LoginDetailResolver {
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot){
 
         let idBeneficiario  = localStorage.getItem('idBeneficiario');
-        let smsValidateCode = localStorage.getItem('smsValidateCode');
+        let aceiteTermo     = localStorage.getItem('aceiteTermo');
+        // let smsValidateCode = localStorage.getItem('smsValidateCode');
 
-        if (idBeneficiario != null && smsValidateCode != null) {
+        // if (idBeneficiario != null && smsValidateCode != null) {
+        if (idBeneficiario != null && aceiteTermo != null) {
             this.router.navigate(['./carteira'], { relativeTo: this.route });
         }
     }

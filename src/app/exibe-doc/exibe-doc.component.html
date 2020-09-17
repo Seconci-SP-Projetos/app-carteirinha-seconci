@@ -2,7 +2,7 @@
 <div class="download-icon">
     <button mat-mini-fab color="warn" (click)="downloadPDF(getDocUrl)" ><mat-icon>cloud_download</mat-icon></button>
 </div>
-<div class="documento" (press)="download($event)">
+<div class="documento">
     <pdf-viewer 
         [show-all]="true" 
         [original-size]="false"

@@ -109,11 +109,14 @@ body, html {
     color: #ffffff;
 }
 
+.toolbar-labels-inactive {
+    color: rgb(185, 185, 185);
+}
+
 .toolbar-label {
     width: 25%; 
     text-align: center;
 }
-
 
 .mat-button-ripple-round {
     border-radius: 50%;

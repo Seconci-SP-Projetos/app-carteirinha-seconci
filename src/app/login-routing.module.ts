@@ -11,10 +11,12 @@ export class LoginDetailResolver {
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot){
 
         let idBeneficiario      = localStorage.getItem('idBeneficiario');
-        let smsCodigoValidado   = localStorage.getItem('smsCodigoValidado');
-
-        if (idBeneficiario != null && smsCodigoValidado != null) {
-            this.router.navigate(['./carteira'], { relativeTo: this.route });
+        // let smsCodigoValidado   = localStorage.getItem('smsCodigoValidado');
+        let termoAceite         = localStorage.getItem('aceiteTermo');
+        
+        // if (idBeneficiario != null && smsCodigoValidado != null) {
+        if (idBeneficiario != null && termoAceite != null) {
+            this.router.navigate(['./agenda'], { relativeTo: this.route });
         }
     }
 }

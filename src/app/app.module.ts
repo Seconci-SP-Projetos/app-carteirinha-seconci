@@ -18,12 +18,14 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { AuthService } from './auth.service';
 import { AuthGuardService } from './auth-guard.service';
 import { LoginDetailResolver } from './login-routing.module'
+import { AceiteDetailResolver } from './aceite-routing.module'
 
 import { MultiService } from './services/multi.services'
 import { CarteiraComponent } from './carteira/carteira.component';
 import { AgendaComponent } from './agenda/agenda.component';
 import { PageNoFoundComponent } from './page-no-found/page-no-found.component';
 import { LoginComponent } from './login/login.component';
+import { TermoAceiteComponent } from './termo-aceite/termo-aceite.component';
 import { MapComponent } from './map/map.component'
 import { ManualComponent } from './manual/manual.component';
 
@@ -61,6 +63,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     AgendaComponent,
     PageNoFoundComponent,
     LoginComponent,
+    TermoAceiteComponent,
     MapComponent,
     ManualComponent, 
     PromptInstallComponent, 
@@ -89,6 +92,7 @@ export class MyHammerConfig extends HammerGestureConfig {
   providers: [ AuthService,
                AuthGuardService, 
                LoginDetailResolver,
+               AceiteDetailResolver,
                ValidaSMSDetailResolver,
                { provide: APP_INITIALIZER, useFactory: initializer, deps: [PwaService], multi: true},
                { provide: HAMMER_GESTURE_CONFIG, useClass: MyHammerConfig, },

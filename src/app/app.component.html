@@ -2,9 +2,9 @@
   <div class="top-bar">
     <img class="logo" alt="Seconci Logo" src="../assets/logoSeconci.png"/>
     <div class="top-buttons">
-      <div class="top-button" matRipple [matRippleUnbounded]="true" *ngIf="loggedIn">
+      <!-- <div class="top-button" matRipple [matRippleUnbounded]="true" *ngIf="loggedIn">
         <a mat-icon-button class="profile"><mat-icon  routerLink="/profile" style="font-size: 30px;">person_pin</mat-icon></a>
-      </div>
+      </div> -->
       <div class="top-button" matRipple  [matRippleUnbounded]="true" *ngIf="loggedIn" (click)="logOff()">
           <mat-icon class="login" style="font-size: 38px; width: 40px">toggle_on</mat-icon>
       </div>
@@ -18,14 +18,14 @@
   </div>
   <div class="toolbar">
     <div class="toolbar-options">
-      <div class="toolbar-option">
+      <!-- <div class="toolbar-option">
         <a mat-icon-button routerLink="/carteira"><mat-icon>credit_card</mat-icon></a>
-      </div>
-      <div class="toolbar-option">
+      </div> -->
+      <div class="toolbar-option"  [class.toolbar-labels-inactive]="!loggedIn">
         <a mat-icon-button routerLink="/agenda" *ngIf="compromissos > 0"><mat-icon matBadge="{{ compromissos }}" matBadgeColor="warn">date_range</mat-icon></a>
         <a mat-icon-button routerLink="/agenda" *ngIf="compromissos == 0"><mat-icon >date_range</mat-icon></a>
       </div>
-      <div class="toolbar-option">
+      <div class="toolbar-option" [class.toolbar-labels-inactive]="!loggedIn">
         <a mat-icon-button routerLink="/documentos"><mat-icon>content_paste</mat-icon></a>
       </div>
       <div class="toolbar-option">
@@ -36,9 +36,9 @@
       </div>
     </div>
     <div class="toolbar-labels">
-      <div class="toolbar-label">Carteira</div>
-      <div class="toolbar-label">Agenda</div>
-      <div class="toolbar-label">Documentos</div>
+      <!-- <div class="toolbar-label">Carteira</div> -->
+      <div class="toolbar-label" [class.toolbar-labels-inactive]="!loggedIn">Agenda</div>
+      <div class="toolbar-label" [class.toolbar-labels-inactive]="!loggedIn">Documentos</div>
       <div class="toolbar-label">Manual</div>
       <div class="toolbar-label">Como Chegar</div>
     </div>

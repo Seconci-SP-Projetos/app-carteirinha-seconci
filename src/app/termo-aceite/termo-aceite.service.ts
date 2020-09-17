@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
 
 const httpOptions = {
@@ -16,26 +15,14 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-
-export class LoginService {
+export class TermoAceiteService {
 
   constructor(
     private http: HttpClient
   ) {}
 
-  public authenticate(cpfTitular: string, matricula: string, dataNascimento: string): Observable<any> {
-
-    // let url = 'https://apis.seconci-sp.org.br:3011/login/authenticate/v2/' + cpfTitular + '/' + dataNascimento;
-    let url = 'https://apis.seconci-sp.org.br:3011/login/authenticate/v2/' + cpfTitular + '/' + dataNascimento + '/' + matricula;
-    return this.http.get(url, httpOptions);
-  }
-        
-  postCodigoSMS(idBeneficiario, codigoSMS) {
-    let payload = {
-      idBeneficiario: idBeneficiario,
-      codigoSMS:      codigoSMS
-    };
-    return this.http.post("https://apis.seconci-sp.org.br:3011/login/gravaSMSCodigo/", JSON.stringify(payload), httpOptions);
+  public registraAceite(aceite) {
+    return this.http.patch("https://apis.seconci-sp.org.br:3011/login/aceite", JSON.stringify(aceite), httpOptions);
   }
 
 }

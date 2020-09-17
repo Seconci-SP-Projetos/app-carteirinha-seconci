@@ -5,17 +5,18 @@
         <div class="profile-nome">{{ nomePaciente }}</div>
 
         <div class="input-row">
-            <span class="material-icons">contact_phone</span>
-            <mat-form-field style="width: 2rem; padding-right: 10px">
+            <span *ngIf="autenticado" class="material-icons">contact_phone</span>
+            <mat-form-field *ngIf="autenticado" style="width: 2rem; padding-right: 10px" disabled="true">
                 <input type="number" matInput id="nr_ddd_celular" placeholder="DDD" formControlName="nr_ddd_celular" maxlength="4">
             </mat-form-field>
-            <mat-form-field style="width: 6.5rem; padding-right: 10px;">
+            <mat-form-field *ngIf="autenticado" style="width: 6.5rem; padding-right: 10px;">
                 <input type="number" matInput id="nr_fone_celular" placeholder="NÚMERO CELULAR" formControlName="nr_fone_celular" maxlength="10">
             </mat-form-field>
+            <span *ngIf="!autenticado" class="material-icons">picture_in_picture</span>
             <mat-form-field style="width: 6.5rem;">
                 <input matInput id="rg_paciente" placeholder="RG" formControlName="rg_paciente" maxlength="14">
             </mat-form-field>
-            <div *ngIf="nr_ddd_celular.invalid || nr_fone_celular.invalid || rg_paciente.invalid" class="invalido">
+            <div *ngIf="autenticado && (nr_ddd_celular.invalid || nr_fone_celular.invalid || rg_paciente.invalid)" class="invalido">
                 Os campos acima são obrigatórios e devem conter apenas números
             </div>
         </div>

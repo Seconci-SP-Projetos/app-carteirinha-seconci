@@ -10,13 +10,29 @@
           <input matInput id="cpfTitular" formControlName="cpfTitular" maxlength="11">
         </mat-form-field>
     </div>
-
-    <div *ngIf="cpfTitular?.touched &&cpfTitular.invalid" class="validation">
+    
+    <div *ngIf="cpfTitular?.touched && cpfTitular.invalid" class="validation">
       <div *ngIf="cpfTitular.errors.required">
-          É preciso informar o seu CPF antes de prosseguir
+        É preciso informar o seu CPF antes de prosseguir
       </div>
       <div *ngIf="cpfTitular.errors.pattern">
-          O CPF deve conter apenas números e ter 11 digitos
+        O CPF deve conter apenas números e ter 11 digitos
+      </div>
+    </div>
+    
+    <div class="cpf">
+        <mat-form-field>
+          <mat-label>número da carteirinha do Seconci</mat-label>
+          <input matInput id="matricula" formControlName="matricula" maxlength="8">
+        </mat-form-field>
+    </div>
+
+    <div *ngIf="matricula?.touched && matricula.invalid" class="validation">
+      <div *ngIf="matricula.errors.required">
+          É preciso informar o número da carteirinha do Seconci antes de prosseguirmos  
+      </div>
+      <div *ngIf="matricula.errors.pattern">
+          O número deve conter de 7 a 8 dígitos
       </div>
     </div>
 

@@ -19,6 +19,7 @@ export class ProfileComponent implements OnInit {
   private profile;
   private carteirinhas = [];
   private carteiraIndex: number = 0;
+  private _autenticado: boolean;
 
   constructor(
               private formBuilder: FormBuilder,
@@ -30,8 +31,6 @@ export class ProfileComponent implements OnInit {
 
               this._profileForm = formBuilder.group({
                 cd_paciente:      ['', [Validators.required]],
-                nr_ddd_celular:   ['', [Validators.required, Validators.pattern('[0-9]{2,4}')]],
-                nr_fone_celular:  ['', [Validators.required, Validators.pattern('[0-9]{8,10}')]],
                 cd_tp_logr:       ['', [Validators.required]],
                 nm_tipo_logr:     ['', [Validators.required]],
                 nm_logradouro:    ['', [Validators.required]],
@@ -45,6 +44,14 @@ export class ProfileComponent implements OnInit {
                 rg_paciente:      ['', [Validators.required]],
                 ocupacao:         ['', []],
                 nm_mae:           ['', []] });
+
+                
+                this._autenticado = localStorage.getItem('smsCodigoValidado') != null && localStorage.getItem('smsCodigoValidado') != '668799';
+
+                if (this._autenticado) {
+                  this._profileForm.addControl('nr_ddd_celular', new FormControl('', { validators: [Validators.required, Validators.pattern('[0-9]{2,4}')] }));
+                  this._profileForm.addControl('nr_fone_celular', new FormControl('', { validators: [Validators.required, Validators.pattern('[0-9]{8,10}')] }));
+                }
 
                 this._profileForm.addControl('cep', new FormControl('', { validators: Validators.nullValidator, asyncValidators: this.validateCEP.bind(this), updateOn: 'blur' }));
                 this._profileForm.addControl('cns', new FormControl('', { validators: Validators.nullValidator, asyncValidators: this.validateCNS.bind(this), updateOn: 'blur' }));
@@ -90,10 +97,8 @@ export class ProfileComponent implements OnInit {
     let formControls = this._profileForm.controls;
     let profile = this.profile;
 
-    this._profileForm.setValue( {
+    this._profileForm.patchValue( {
           cd_paciente:      profile.CD_PACIENTE,
-          nr_ddd_celular:   parseInt(profile.NR_DDD_CELULAR),
-          nr_fone_celular:  parseInt(profile.NR_FONE_CELULAR),
           cd_tp_logr:       profile.CD_TP_LOGR,
           nm_tipo_logr:     profile.NM_TP_LOGR,
           nm_logradouro:    profile.NM_LOGRADOURO,
@@ -110,6 +115,13 @@ export class ProfileComponent implements OnInit {
           nm_mae:           profile.NM_MAE, 
           cns:              profile.CNS 
     })
+
+    if(this._autenticado) {
+      this._profileForm.patchValue( {
+            nr_ddd_celular:   parseInt(profile.NR_DDD_CELULAR),
+            nr_fone_celular:  parseInt(profile.NR_FONE_CELULAR)
+      })
+    }
 
   }
 
@@ -129,8 +141,8 @@ export class ProfileComponent implements OnInit {
 
     let submitProfile = {
       v_matricula:        this._profileForm.value.cd_paciente,
-      v_ddd:              this._profileForm.value.nr_ddd_celular.toString(),
-      v_nrCelular:        this._profileForm.value.nr_fone_celular.toString(),
+      v_ddd:              null,
+      v_nrCelular:        null,
       v_tipoLogradouro:   this._profileForm.value.cd_tp_logr,
       v_nmLogradouro:     this._profileForm.value.nm_logradouro,
       v_nrLogradouro:     ! this._profileForm.value.nr_logradouro ? '' : this._profileForm.value.nr_logradouro.toString(),
@@ -144,6 +156,11 @@ export class ProfileComponent implements OnInit {
       v_ocupacao:         ! this._profileForm.value.ocupacao ? '' : this._profileForm.value.ocupacao,
       v_nmMae:            ! this._profileForm.value.nm_mae ? '' : this._profileForm.value.nm_mae,
       v_cns:              ! this._profileForm.value.cns ? '' : this._profileForm.value.cns
+    }
+
+    if (this._autenticado) {
+      submitProfile.v_ddd       = this._profileForm.value.nr_ddd_celular.toString(),
+      submitProfile.v_nrCelular =  this._profileForm.value.nr_fone_celular.toString()
     }
 
     console.log(submitProfile);
@@ -272,5 +289,7 @@ export class ProfileComponent implements OnInit {
   get cep() { return this._profileForm.get('cep'); }
   get email() { return this._profileForm.get('email'); }
   get cns() { return this._profileForm.get('cns'); }
+
+  get autenticado() { return this._autenticado; }
 
 }

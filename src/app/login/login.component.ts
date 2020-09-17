@@ -43,7 +43,8 @@ export class LoginComponent implements OnInit {
               ) {
     
     this.formLogin = formBuilder.group({
-        cpfTitular: ['', [Validators.required, Validators.pattern('^[0-9]{11}$')]],
+        cpfTitular:    ['', [Validators.required, Validators.pattern('^[0-9]{11}$')]],
+        matricula:     ['', [Validators.required, Validators.pattern('^[0-9]{6,8}$')]],
         diaNascimento: ['', [Validators.required, Validators.min(1), Validators.max(31)]],
         mesNascimento: ['', [Validators.required, Validators.min(1), Validators.max(12)]],
         anoNascimento: ['', [Validators.required, Validators.min(1900)]], }
@@ -51,10 +52,10 @@ export class LoginComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.fieldNames = ['cpfTitular', 'diaNascimento', 'mesNascimento', 'anoNascimento'];
+    this.fieldNames = ['cpfTitular', 'matricula', 'diaNascimento', 'mesNascimento', 'anoNascimento'];
   }
 
-  noveNextInput(e) {
+noveNextInput(e) {
 
     const target = e.srcElement || e.target;
     const maxLength = parseInt(target.attributes["maxlength"].value, 10);
@@ -97,41 +98,76 @@ export class LoginComponent implements OnInit {
 
     let dataNascimento =  diaNascimento + mesNascimento + this.anoNascimento.value;
 
-    return this.loginService.authenticate(this.cpfTitular.value, dataNascimento)
+    return this.loginService.authenticate(this.cpfTitular.value, this.matricula.value, dataNascimento)
       .subscribe(dadosCliente => {    
         
         const idBeneficiario  = dadosCliente[0].ID_BENEFICIARIO;
         const ddd             = dadosCliente[0].NR_DDD_CELULAR ? dadosCliente[0].NR_DDD_CELULAR.trimRight() : '';
         const numeroCel       = dadosCliente[0].NR_FONE_CELULAR ?  dadosCliente[0].NR_FONE_CELULAR : '';
 
-        const numeroCelular   = '55' + ddd + numeroCel;
-        // const numeroCelular   = '5511999919474';
-        const codigoSMS       = this.multiServices.geraRandomCode;
-
-        localStorage.setItem('idBeneficiario', idBeneficiario);
-        localStorage.setItem('numeroCelular', dadosCliente[0].NR_FONE_CELULAR);
-        localStorage.setItem('numeroCelularCompleto', numeroCelular);
-        localStorage.setItem('nascimentoFormatado', this.multiServices.formatDataSemBarras(dadosCliente[0].DT_NASCIMENTO));
-
-        const smsCodigoValidado   = localStorage.getItem('smsCodigoValidado');
+        // const smsCodigoValidado   = localStorage.getItem('smsCodigoValidado');
+        const aceiteTermo         = localStorage.getItem('aceiteTermo');
         const cpfTitularGravado   = localStorage.getItem('cpfTitular');
         const cpfTitularInformado = this.multiServices.cpfSomenteNumeros(dadosCliente[0].CPF_TITULAR);
 
-        if ((smsCodigoValidado == null) || (cpfTitularGravado !== cpfTitularInformado)) {
-          if (numeroCel !== '') {
-            localStorage.removeItem('smsCodigoValidado');
-            localStorage.setItem('cpfTitular', cpfTitularInformado);
-            this.enviaCodigoSMS(idBeneficiario, numeroCelular, codigoSMS); 
-          } else {
-            let messageData = {
-              success: false,
-              message: 'Precisamos do número do celular para enviar um código de verificação mas ele é inválido. Por favor procure o Seconci e atualize seu cadastro.' }
-            let bottomSheet = this.bottomSheet.open(CustomMessageComponent, { data: messageData });
-            setTimeout( function() { bottomSheet.dismiss(false) }, 5000);
+        // const numeroCelular  = '5511999919474';
+        const numeroCelular     = '55' + ddd + numeroCel;
+        // const codigoSMS         = this.multiServices.geraRandomCode;
+        localStorage.removeItem('matricula');
+        localStorage.setItem('cpfTitular', cpfTitularInformado);
+        localStorage.setItem('idBeneficiario', idBeneficiario);
+        localStorage.setItem('beneficiario', dadosCliente[0].NM_BENEFICIARIO);
 
+        localStorage.setItem('unidade', dadosCliente[0].UNIDADE);
+        localStorage.setItem('codUnidade', dadosCliente[0].CD_HOSPITAL);
+        localStorage.setItem('telefone', dadosCliente[0].TELEFONE);
+        localStorage.setItem('localizacao', dadosCliente[0].LOCALIZACAO);
+
+        // localStorage.setItem('numeroCelular', dadosCliente[0].NR_FONE_CELULAR);
+        // localStorage.setItem('numeroCelularCompleto', numeroCelular);
+        localStorage.setItem('nascimentoFormatado', this.multiServices.formatDataSemBarras(dadosCliente[0].DT_NASCIMENTO));
+
+
+        // if ((smsCodigoValidado == null) || (cpfTitularGravado !== cpfTitularInformado)) {
+        if ((aceiteTermo == null) || (cpfTitularGravado !== cpfTitularInformado)) {
+
+          // if (numeroCel !== '') {
+          //   localStorage.removeItem('smsCodigoValidado');
+          //   localStorage.setItem('cpfTitular', cpfTitularInformado);
+          //   this.enviaCodigoSMS(idBeneficiario, numeroCelular, codigoSMS); 
+          // } else {
+          //   let messageData = {
+          //     success: false,
+          //     message: 'Precisamos do número do celular para enviar um código de verificação mas ele é inválido. Por favor procure o Seconci e atualize seu cadastro.' }
+          //   let bottomSheet = this.bottomSheet.open(CustomMessageComponent, { data: messageData });
+          //   setTimeout( function() { bottomSheet.dismiss(false) }, 5000);
+          // }
+
+          // if (numeroCel !== '') {
+          //   localStorage.removeItem('smsCodigoValidado');
+          //   localStorage.removeItem('matricula');
+          //   localStorage.setItem('cpfTitular', cpfTitularInformado);
+          //   this.enviaCodigoSMS(idBeneficiario, numeroCelular, codigoSMS); 
+          // } else {
+          //   localStorage.setItem('smsCodigoValidado', '668799');
+          //   localStorage.setItem('cpfTitular', cpfTitularInformado);
+          //   this.router.navigate(['../carteira'], { relativeTo: this.route });
+          //   let messageData = {
+          //     success: true,
+          //     message: 'Para ter acesso à agenda e documentos procure o Seconci para atualizar seu cadastro.'
+          //   }
+          //   let bottomSheet = this.bottomSheet.open(CustomMessageComponent, { data: messageData });
+          //   setTimeout( function() { bottomSheet.dismiss(false) }, 5000);
+          // }
+
+          if (aceiteTermo) {
+            this.router.navigate(['../agenda'], { relativeTo: this.route });
+          } else {
+            this.router.navigate(['../termo'], { relativeTo: this.route });
           }
+
         } else  {
-          this.router.navigate(['../carteira'], { relativeTo: this.route });
+          this.router.navigate(['../agenda'], { relativeTo: this.route });
         }
       },
       (error) => {
@@ -139,13 +175,12 @@ export class LoginComponent implements OnInit {
           this._loginError = true
          }
       });
-
   }
 
   enviaCodigoSMS(idBeneficiario: string, numeroCelular: string, codigoSMS: string) {
 
     this.sendingSMS = true;
-
+    
     this.multiServices.enviarCodigoViaSMS(idBeneficiario, numeroCelular, codigoSMS)
     .subscribe( (resultadoEnvio: smsResult) => {
 
@@ -187,6 +222,7 @@ export class LoginComponent implements OnInit {
   }
 
   get cpfTitular() { return this.formLogin.controls['cpfTitular'] }
+  get matricula() { return this.formLogin.controls['matricula'] }
   get diaNascimento() { return this.formLogin.controls['diaNascimento'] }
   get mesNascimento() { return this.formLogin.controls['mesNascimento'] }
   get anoNascimento() { return this.formLogin.controls['anoNascimento'] }

@@ -1,0 +1,28 @@
+.termo-aceite {
+    max-width: 860px;
+    padding: 10px;
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.7);
+    margin: 20px 10px;
+    border-radius: 20px;
+    padding: 20px;
+    padding-bottom: 40px;
+    font-size: 12px;
+}
+
+.titulo {
+    font-weight: bold;
+}
+
+.itens {
+    margin-bottom: 12px;
+    text-align: justify;
+}
+
+.form-buttom-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    margin-left: 20px;
+    max-width: 220px;
+}

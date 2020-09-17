@@ -1,0 +1,49 @@
+<div class="termo-aceite">
+
+    <p class="titulo"> 
+        TERMO DE CONSENTIMENTO INFORMADO ELETRÔNICO PARA CONSULTA À DISTÂNCIA REALIZADAS PELO SECONCI-SP E SUAS UNIDADES considerando o disposto na Portaria MS 467/20
+    </p>
+    <p>Eu, <b>{{ nomeBeneficiario }}</b>, autorizo a realização de consultas por tele atendimento (telemedicina) .</p>
+    <p>Declaro ter ciência que:</p>
+        <p class="itens">
+            1.  O atendimento por telemedicina é permitido pelo Ministério da Saúde e ocorrerá segundo suas orientações. 
+        </p>
+        <p class="itens">
+            2. Poderá ser necessária a realização de exames complementares, a critério do médico; 
+        </p>
+        <p class="itens">
+            3. Poderá ser necessária uma consulta presencial para realização de exame clínico, a critério do médico;
+        </p>
+        <p class="itens">
+            4. Deverei procurar uma unidade de pronto atendimento ou hospitalar em caso de quadro de saúde de URGÊNCIA ou EMERGÊNCIA; 
+        </p>
+        <p class="itens">
+            5. A consulta eletrônica é individual e com horário marcado e poderá ser realizada por médicos e demais profissionais do Seconci-SP e de suas unidades; 
+        </p>
+        <p class="itens">
+            6. Falhas na conexão da internet podem exigir o cancelamento e remarcação da consulta. Por isso estou ciente de que devo testar meu equipamento 15 minutos antes da hora agendada para a consulta; 
+        </p>
+        <p class="itens">
+            7. Deverei preservar e manter a confidencialidade das imagens (foto e vídeo), dos dados, dos diálogos, orientações, prescrições e todo o conteúdo referentes à teleconsulta, assumindo riscos e responsabilidades com relação ao sigilo; 
+        </p>
+        <p class="itens">
+            8. Autorizo a utilização de tecnologia e aplicativos da internet como forma de comunicação e envio de receitas médicas, pedidos de exames, relatórios ou atestados;
+        </p>
+        <p class="itens">
+            9. Caso solicitado o registro da consulta e exames decorrentes poderá ser enviado via e-mail por mim indicado ou retirados por portador que eu autorizar, observando-se a necessidade de proteção de todas as informações que estarão sob minha responsabilidade. 
+        </p>
+
+    <p>
+        Por fim, declaro ter lido as informações e orientações contidas no presente instrumento, as quais entendi perfeitamente.
+    </p>
+    <p>
+        Assim, expresso meu pleno consentimento para a realização da teleconsulta.
+    </p>
+
+   
+    <div class="form-buttom-row">
+        <button mat-raised-button color="primary" type="button" (click)="aceito()">ACEITO</button>
+        <button mat-raised-button color="warn" type="button" (click)="naoAceito()">NÃO ACEITO</button>
+    </div>
+
+</div>

@@ -53,13 +53,15 @@ export class AppComponent implements OnInit {
     for (const [key, data] of Object.entries(localStrgValues)) {
       if ('smsCodigoValidado,cpfTitular'.indexOf(key) === -1) {
         localStorage.removeItem(key);
+      } else if (key === 'smsCodigoValidado' && localStorage.getItem('smsCodigoValidado') === '668799') {
+        localStorage.removeItem(key);
       }
     }
 
     this.router.navigate(['./login']);
   }
-  get loggedIn() { return localStorage.getItem('smsCodigoValidado') != null && localStorage.getItem('idBeneficiario') != null; }
-
+  get loggedIn() { return localStorage.getItem('aceiteTermo') != null && localStorage.getItem('idBeneficiario') != null; }
+  // get autenticado() { return localStorage.getItem('smsCodigoValidado') != null && localStorage.getItem('smsCodigoValidado') != '668799'}
   get compromissos() { return this.multiService.compromissosAtivos }
 
 }

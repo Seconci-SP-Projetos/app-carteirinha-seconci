@@ -13,3 +13,10 @@ body {
     background: rgb(255,255,255);
     background: linear-gradient(300deg, rgba(195, 195, 195, 0.3) 0%, rgba(255,255,255,1) 100%); 
 }
+
+.spinner {
+    position: absolute; 
+    top:     45%; 
+    left:    50%;
+    transform: translateX(-50%);
+  }

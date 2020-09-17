@@ -7,9 +7,10 @@ export class AuthService {
   public isAuthenticated(): boolean {
 
     let idBeneficiario      = localStorage.getItem('idBeneficiario');
-    let smsCodigoValidado   = localStorage.getItem('smsCodigoValidado');
+    // let smsCodigoValidado   = localStorage.getItem('smsCodigoValidado');
+    let aceiteTermo   = localStorage.getItem('aceiteTermo');
 
-    return (idBeneficiario != null && smsCodigoValidado != null);
+    return (idBeneficiario != null && aceiteTermo != null);
 
   }
 }
