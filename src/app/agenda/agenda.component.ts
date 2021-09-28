@@ -183,7 +183,7 @@ export class AgendaComponent implements OnInit {
 
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
-      duration: 30000,
+      duration: 60000,
       // here specify the position
       verticalPosition: 'top'
     });
