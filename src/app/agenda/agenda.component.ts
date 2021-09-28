@@ -20,22 +20,22 @@ export class AgendaComponent implements OnInit {
 
   private intervalo;
   private primeiroDetalhe: boolean = true;
- 
+
   public reloading: boolean = false;
 
-  constructor( private agendaService: AgendaService,
-               public multiService: MultiService,
-               private snackBar: MatSnackBar  ) {}
+  constructor(private agendaService: AgendaService,
+    public multiService: MultiService,
+    private snackBar: MatSnackBar) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   ngAfterViewInit() {
-    
+
     this.loadAgendamentos();
 
     var myElement = document.getElementById('agendaContainer');
     var mc = new Hammer(myElement);
-   
+
     mc.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
 
   }
@@ -47,121 +47,146 @@ export class AgendaComponent implements OnInit {
   loadAgendamentos() {
 
     // prevent scrolling, so the drag/swipe handler is getting called
-   clearInterval(this.intervalo);
+    clearInterval(this.intervalo);
 
-   this.reloading = true;
+    this.reloading = true;
 
-   const agendaCarregada = this.multiService.agendaCarregada;
+    const agendaCarregada = this.multiService.agendaCarregada;
 
-   this.multiService.loadAgendmentos()
-     .subscribe(  (numAgendamentos) => {
-       if (numAgendamentos.value > 0) {
-         this.multiService.verificaTelemedicinaAtiva();
-         this.intervalo = setInterval(() => { this.multiService.verificaTelemedicinaAtiva()}, 10000);
-         if (!agendaCarregada) {
-           this.snackBar.open('Toque no compromisso para maiores informações.', ' ', { duration: 3000 });
-         }
-       }
-       setTimeout( () => { this.reloading = false }, 1000); 
-     }, 
-     () => {  
-       this.snackBar.open('Ocorreu um erro durante o processo de carga da agenda.', ' ', { duration: 3000 });
-       this.reloading = false; 
-     });
+    this.multiService.loadAgendmentos()
+      .subscribe((numAgendamentos) => {
+        if (numAgendamentos.value > 0) {
+          this.multiService.verificaTelemedicinaAtiva();
+          this.intervalo = setInterval(() => { this.multiService.verificaTelemedicinaAtiva() }, 10000);
+          if (!agendaCarregada) {
+            this.snackBar.open('Toque no compromisso para maiores informações.', ' ', { duration: 3000 });
+          }
+        }
+        setTimeout(() => { this.reloading = false }, 1000);
+      },
+        () => {
+          this.snackBar.open('Ocorreu um erro durante o processo de carga da agenda.', ' ', { duration: 3000 });
+          this.reloading = false;
+        });
 
   }
 
-  carregaPreparoExame(index: number,recurso: string, data: string, hora: string ) {
-    
+  carregaPreparoExame(index: number, recurso: string, data: string, hora: string) {
+
     if (this.multiService.agendamentos[index].procedimentoUnico == null) {
 
       const regEx = /(\:|\/)/g
-      const matricula = localStorage.getItem('idBeneficiario') ;
+      const matricula = localStorage.getItem('idBeneficiario');
       const dataFormatada = data.replace(regEx, '');
       const horaFormatada = hora.replace(regEx, '');
 
       this.agendaService.getExames(matricula, recurso, dataFormatada, horaFormatada)
-      .subscribe( (exame) => { 
+        .subscribe((exame) => {
 
-        const codigoPreparo = exame[0].CD_PROCEDIMENTO;
+          const codigoPreparo = exame[0].CD_PROCEDIMENTO;
 
-        this.agendaService.getPreparo(codigoPreparo)
-        .subscribe( (preparo) => {
-          this.multiService.agendamentos[index].procedimentoUnico = preparo[0].TX_PREPARO;
-          this.multiService.agendamentos[index].exibeProcedimento = true;
+          this.agendaService.getPreparo(codigoPreparo)
+            .subscribe((preparo) => {
+              this.multiService.agendamentos[index].procedimentoUnico = preparo[0].TX_PREPARO;
+              this.multiService.agendamentos[index].exibeProcedimento = true;
+            }, (erro) => {
+              this.snackBar.open('Sem informações de peparo para este agendamento.', ' ', {
+                duration: 2000
+              });
+            });
         }, (erro) => {
-          this.snackBar.open('Sem informações de peparo para este agendamento.', ' ', {
-            duration: 2000 });
+          this.snackBar.open('Sem mais informações sobre este exame.', ' ', {
+            duration: 2000
+          });
         });
-      }, (erro) => {
-        this.snackBar.open('Sem mais informações sobre este exame.', ' ', {
-          duration: 2000 });
-      }); 
     } else {
       this.multiService.agendamentos[index].exibeProcedimento = !this.multiService.agendamentos[index].exibeProcedimento;
     }
 
   }
 
-  carregaExames(index: number, recurso: string, data: string, hora: string ) {
+  carregaExames(index: number, recurso: string, data: string, hora: string) {
 
     if (this.multiService.agendamentos[index].exames == null) {
 
       const regEx = /(\:|\/)/g
       const dataFormatada = data.replace(regEx, '');
       const horaFormatada = hora.replace(regEx, '');
-  
-      const matricula = localStorage.getItem('idBeneficiario') ;
-  
+
+      const matricula = localStorage.getItem('idBeneficiario');
+
       this.agendaService.getExames(matricula, recurso, dataFormatada, horaFormatada)
-        .subscribe( (exames: any) => {
+        .subscribe((exames: any) => {
 
           if (exames.length > 1) {
             this.multiService.agendamentos[index].exames = exames;
             this.multiService.agendamentos[index].exibeExames = true;
-            if(this.primeiroDetalhe) {
+            if (this.primeiroDetalhe) {
               this.snackBar.open('Toque no nome do procedimento para informações de preparo.', ' ', {
-                duration: 3000 });
-                this.primeiroDetalhe = false;
+                duration: 3000
+              });
+              this.primeiroDetalhe = false;
             }
           } else {
             this.snackBar.open('Sem maiores informações para este procedimento.', ' ', {
-              duration: 2000 });
+              duration: 2000
+            });
           }
-        }, 
-        (erro) => {
+        },
+          (erro) => {
             this.snackBar.open('Sem maiores informações para este procedimento.', ' ', {
-              duration: 2000 });
-        });
+              duration: 2000
+            });
+          });
     } else {
-      this.multiService.agendamentos[index].exibeExames = !  this.multiService.agendamentos[index].exibeExames;
+      this.multiService.agendamentos[index].exibeExames = !this.multiService.agendamentos[index].exibeExames;
     }
 
   }
 
-  carregaPreparo(indexAgenda: number, indexExame: number, codigoPreparo: string ) {
-      if (this.multiService.agendamentos[indexAgenda].exames[indexExame].preparo === undefined) {
-        console.log('procedimento nao carregado')
-        this.agendaService.getPreparo(codigoPreparo)
-          .subscribe( (preparo) => {
+  carregaPreparo(indexAgenda: number, indexExame: number, codigoPreparo: string) {
+    if (this.multiService.agendamentos[indexAgenda].exames[indexExame].preparo === undefined) {
+      console.log('procedimento nao carregado')
+      this.agendaService.getPreparo(codigoPreparo)
+        .subscribe((preparo) => {
           this.multiService.agendamentos[indexAgenda].exames[indexExame].exibePreparo = true;
           this.multiService.agendamentos[indexAgenda].exames[indexExame].preparo = preparo[0].TX_PREPARO;
         })
-      } else {
-        this.multiService.agendamentos[indexAgenda].exames[indexExame].exibePreparo = ! this.multiService.agendamentos[indexAgenda].exames[indexExame].exibePreparo;
-      }
-   }
+    } else {
+      this.multiService.agendamentos[indexAgenda].exames[indexExame].exibePreparo = !this.multiService.agendamentos[indexAgenda].exames[indexExame].exibePreparo;
+    }
+  }
 
   iniciaTelemedicina(nomeSala: string) {
-
-    const totalCompromissos = this.multiService.agendamentos.length;
-    for( let index = 0; index < totalCompromissos; index++ ) {
-      if(this.multiService.agendamentos[index].alertEvent != null) {
-        clearTimeout(this.multiService.agendamentos[index].alertEvent);
-        this.multiService.agendamentos[index].alertEvent = null;
+    const conn = (navigator as any).connection;
+    if (conn) {
+      if (conn.saveData) {
+        // do something
+      }
+      const connectionlist = ["slow-2g", "2g", "3g", "4g", "wi-fi"];
+      const effectiveType = conn.effectiveType;
+      console.log(typeof effectiveType);
+      if (effectiveType === '2g' || effectiveType === 'slow-2g') {
+        this.openSnackBar('Sua conexão está fraca, verifique e tente novamente', 'fechar')
+      } else {
+        const totalCompromissos = this.multiService.agendamentos.length;
+        for (let index = 0; index < totalCompromissos; index++) {
+          if (this.multiService.agendamentos[index].alertEvent != null) {
+            clearTimeout(this.multiService.agendamentos[index].alertEvent);
+            this.multiService.agendamentos[index].alertEvent = null;
+          }
+        }
+        document.location.href = "https://seconci.whereby.com/" + nomeSala;
       }
     }
-    document.location.href = "https://seconci.whereby.com/" + nomeSala;
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 30000,
+      // here specify the position
+      verticalPosition: 'top'
+    });
   }
 
   get pacienteSelecionado() { return localStorage.getItem('beneficiario') }
